@@ -1,0 +1,59 @@
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor and IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.vim/
+.atom/
+*.sublime-project
+*.sublime-workspace
+.cursor/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+.env*.local
+*.pem
+*.key
+
+# Build artifacts (if any)
+dist/
+build/
+*.out
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+*.bak
+
+# Node (if future scripts use Node)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Python (if future scripts use Python)
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# Plan and temporary files
+.github-repository-plan/
+PLAN.md

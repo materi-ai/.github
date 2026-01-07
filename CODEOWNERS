@@ -1,0 +1,33 @@
+# CODEOWNERS for Materi .github repository
+# Controls who must review and approve changes to governance files
+#
+# GitHub uses this file to automatically request reviews from specified owners
+# when pull requests modify the files they're responsible for.
+#
+# Syntax: <pattern> <@owner1> <@owner2> <@team>
+
+# Default: All org admins must review changes
+* @materi/admins
+
+# Security policies — Security team
+/SECURITY.md @materi/security-team
+
+# Code of Conduct — Community team
+/CODE_OF_CONDUCT.md @materi/community-leads
+
+# Contribution guidelines — Tech leads
+/CONTRIBUTING.md @materi/tech-leads
+
+# Organization profile and branding — Marketing + Tech lead
+/profile/ @materi/marketing @materi/tech-leads
+
+# Issue and PR templates — Platform team
+/ISSUE_TEMPLATE/ @materi/platform-team
+/pull_request_template.md @materi/platform-team
+
+# GitHub Actions workflows — DevOps/Platform
+/workflows/ @materi/platform-team
+
+# Repository documentation
+/README.md @materi/tech-leads
+/docs/ @materi/tech-leads
