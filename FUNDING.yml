@@ -1,0 +1,22 @@
+# Funding and Support Options
+
+# GitHub Sponsors
+github: materi
+
+# Open Collective
+open_collective: materi
+
+# Ko-Fi
+ko_fi: materi
+
+# Patreon (if applicable)
+# patreon: materi
+
+# Custom funding links
+custom:
+  - name: "Materi Enterprise"
+    url: "https://getmateri.com/enterprise"
+  - name: "Documentation"
+    url: "https://docs.getmateri.com"
+  - name: "Support"
+    url: "https://support.getmateri.com"
