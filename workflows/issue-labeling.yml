@@ -1,0 +1,154 @@
+name: Auto-label Issues
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - name: "Auto-label by title pattern"
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const title = issue.title.toLowerCase();
+            const labels = [];
+
+            // Bug patterns
+            if (title.includes('bug') || title.includes('issue') || title.includes('error')) {
+              labels.push('bug');
+            }
+
+            // Feature request patterns
+            if (title.includes('feat') || title.includes('feature') || title.includes('request')) {
+              labels.push('enhancement');
+            }
+
+            // Documentation patterns
+            if (title.includes('doc') || title.includes('documentation')) {
+              labels.push('documentation');
+            }
+
+            // Question patterns
+            if (title.includes('question') || title.includes('help') || title.includes('how')) {
+              labels.push('question');
+            }
+
+            // Performance patterns
+            if (title.includes('performance') || title.includes('slow') || title.includes('optimization')) {
+              labels.push('performance');
+            }
+
+            // Security patterns
+            if (title.includes('security') || title.includes('vulnerability')) {
+              labels.push('security');
+            }
+
+            // Accessibility patterns
+            if (title.includes('a11y') || title.includes('accessibility')) {
+              labels.push('accessibility');
+            }
+
+            // Always add based on issue body
+            const body = issue.body?.toLowerCase() || '';
+
+            if (body.includes('breaking change')) {
+              labels.push('breaking-change');
+            }
+
+            // Remove duplicates and add labels
+            const uniqueLabels = [...new Set(labels)];
+            if (uniqueLabels.length > 0) {
+              github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: uniqueLabels
+              });
+            }
+
+  label-by-template:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+
+    steps:
+      - name: "Add label based on issue template"
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+
+            // Check if it's a bug report (contains bug report markers)
+            if (body.includes('Steps to Reproduce') || body.includes('Expected Behavior')) {
+              github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ['bug']
+              });
+            }
+
+            // Check if it's a feature request (contains feature request markers)
+            if (body.includes('Use Case') || body.includes('Proposed Solution')) {
+              github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ['enhancement']
+              });
+            }
+
+            // Check if it's a question (contains question markers)
+            if (body.includes('What You\\'ve Tried') || body.includes('Context')) {
+              github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ['question']
+              });
+            }
+
+  prioritize:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+
+    steps:
+      - name: "Add priority labels"
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body?.toLowerCase() || '';
+
+            // Check severity markers
+            if (body.includes('critical') || body.includes('rce') || body.includes('data loss')) {
+              github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ['priority-critical']
+              });
+            } else if (body.includes('urgent') || body.includes('high')) {
+              github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ['priority-high']
+              });
+            } else if (body.includes('low') || body.includes('minor')) {
+              github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ['priority-low']
+              });
+            }

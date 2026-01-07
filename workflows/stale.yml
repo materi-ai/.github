@@ -1,0 +1,81 @@
+name: "Close Stale Issues and PRs"
+
+on:
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: "Close stale issues and pull requests"
+        uses: actions/stale@v9
+        with:
+          # Configuration for issues
+          days-before-issue-stale: 60
+          days-before-issue-close: 7
+          stale-issue-label: "stale"
+          stale-issue-message: |
+            This issue has been inactive for 60 days. If you believe this is still relevant, please:
+            1. Add a comment with an update
+            2. Reopen the issue if it was closed
+            3. React with 👍 to show continued interest
+
+            Issues that remain inactive for 7 more days will be closed automatically.
+          close-issue-label: "stale-closed"
+          close-issue-message: |
+            This issue was automatically closed because it has been inactive for 67 days.
+
+            If you believe this issue is still relevant, please:
+            1. Reopen the issue
+            2. Add a comment explaining the current status
+
+            We appreciate your understanding!
+
+          # Configuration for pull requests
+          days-before-pr-stale: 90
+          days-before-pr-close: 14
+          stale-pr-label: "stale"
+          stale-pr-message: |
+            This PR has been inactive for 90 days. If you're still interested in merging this:
+            1. Rebase on the latest main branch
+            2. Address any merge conflicts
+            3. Update implementation if needed
+            4. Request review again
+            5. Add a comment with an update
+
+            PRs that remain inactive for 14 more days will be closed automatically.
+          close-pr-label: "stale-closed"
+          close-pr-message: |
+            This PR was automatically closed because it has been inactive for 104 days.
+
+            If you'd like to revive this PR:
+            1. Reopen the PR
+            2. Update it with the latest changes from main
+            3. Request review again
+
+            Thank you for your contribution!
+
+          # Exclude important items
+          exempt-issue-labels: "pinned,blocker,critical,in-progress"
+          exempt-pr-labels: "pinned,blocker,in-progress,do-not-merge"
+
+          # Only process items with activity
+          only-labels: ""
+
+          # Disable assignee exemption (stale even if assigned)
+          exempt-assignees: ""
+
+          # Operations to perform
+          remove-stale-when-updated: true
+          operations-per-run: 30
+          remove-stale-label: true
+
+          # Repo settings
+          repo-token: ${{ secrets.GITHUB_TOKEN }}

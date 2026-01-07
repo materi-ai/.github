@@ -1,0 +1,23 @@
+# Issue template configuration for Materi
+# This controls issue creation behavior in all Materi repositories
+
+# Disable blank issues - require using a template
+blank_issues_enabled: false
+
+# Contact links shown in issue templates
+contact_links:
+  - name: "📚 Documentation"
+    url: https://docs.getmateri.com
+    about: "Check documentation for answers and guides"
+
+  - name: "💬 Discussions"
+    url: https://github.com/orgs/materi/discussions
+    about: "Ask questions or discuss features with the community"
+
+  - name: "🔒 Security Issues"
+    url: https://github.com/materi/.github/security/policy
+    about: "Report security vulnerabilities responsibly"
+
+  - name: "📧 Email Support"
+    url: "mailto:hello@materi.dev"
+    about: "Contact Materi support team"
