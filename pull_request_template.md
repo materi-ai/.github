@@ -83,4 +83,4 @@ Related to #
 4. Follows the project's code style
 5. Has clear commit messages
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for detailed guidelines.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
